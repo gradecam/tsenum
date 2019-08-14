@@ -1,5 +1,5 @@
 {
-  "name": "tsenum",
+  "name": "@gradecam/tsenum",
   "version": "1.0.0",
   "description": "Super simple typescript library for string-compatible enums",
   "main": "dist/index.js",

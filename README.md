@@ -11,7 +11,7 @@ is not original to us.
 Installing
 ==========
 
-    npm install --save tsenum
+    npm install --save @gradecam/tsenum
 
 
 Basic Usage
