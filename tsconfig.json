@@ -2,9 +2,9 @@
   "compileOnSave": true,
   "compilerOptions": {
     "outDir": "dist",
-    "target": "esnext",
+    "target": "es5",
     "lib": ["esnext", "dom"],
-    "module": "commonjs",
+    "module": "umd",
     "strict": true,
     "declaration": true,
     "importHelpers": true,

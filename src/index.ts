@@ -1,4 +1,42 @@
 
+let freeze = function freezeDefault<T>(obj: T) {
+    return Object.freeze.apply(Object, arguments as any);
+}
+if (typeof Object.freeze !== 'function') {
+    // Fallback in case Object.freeze isn't supported
+    freeze = (v: any) => v;
+}
+// Object.assign polyfill taken from
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Polyfill
+if (typeof Object.assign !== 'function') {
+  // Must be writable: true, enumerable: false, configurable: true
+  Object.defineProperty(Object, "assign", {
+    value: function assign(target: any, varArgs: any) { // .length of function is 2
+      'use strict';
+      if (target === null || target === undefined) {
+        throw new TypeError('Cannot convert undefined or null to object');
+      }
+
+      var to = Object(target);
+
+      for (var index = 1; index < arguments.length; index++) {
+        var nextSource = arguments[index];
+
+        if (nextSource !== null && nextSource !== undefined) { 
+          for (var nextKey in nextSource) {
+            // Avoid bugs when hasOwnProperty is shadowed
+            if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+              to[nextKey] = nextSource[nextKey];
+            }
+          }
+        }
+      }
+      return to;
+    },
+    writable: true,
+    configurable: true
+  });
+}
 /**
  * Use this along with TypeFromEnum to make a "fake" frozen enum which can be
  * used in place of an enum in ways that are mongoose-friendly and much more
@@ -15,6 +53,9 @@
  * // MyEnum.key1, etc al work
  * // Object.values(MyEnum) will return ["value1", "value2", "value3"] e.g. for use in a mongoose enum
  * // assigning something of type MyEnum to the string value works
+ * 
+ * You can also pass in multiple objects (or multiple enums created with this
+ * helper) and the result will combine them with the actual value using Object.assign
  *
  * @param x Enum object to create a typed enum for
  */
@@ -72,7 +113,7 @@ function MakeEnum<T1 extends {[index: string]: U}
                 , T9 extends {[index: string]: U}
                 , U extends string>(x1: T1, x2: T2, x3: T3, x4: T4, x5: T5, x6: T6, x7: T7, x8: T8, x9: T9) : Readonly<T1 & T2 & T3 & T4 & T5 & T6 & T7 & T8 & T9>;
 function MakeEnum<T extends {[index: string]: U}, U extends string>(...x: T[]) {
-    return Object.freeze(Object.assign({}, ...x));
+    return freeze(Object.assign({}, ...x));
 }
 /**
  * Use this with MakeEnum. See docs for MakeEnum for example
