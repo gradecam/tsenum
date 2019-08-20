@@ -1,0 +1,21 @@
+{
+  "name": "tsenum",
+  "description": "Super simple typescript library for string-compatible enums",
+  "main": "dist/index.js",
+  "authors": [
+    "Richard Bateman <rbateman@gradecam.com>"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "typescript",
+    "enum"
+  ],
+  "homepage": "https://github.com/gradecam/tsenum",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -24,6 +24,7 @@
     "url": "https://github.com/gradecam/tsenum/issues"
   },
   "devDependencies": {
+    "bower": "^1.8.8",
     "typescript": "~3.2.2"
   },
   "files": [
