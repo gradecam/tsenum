@@ -79,3 +79,8 @@ schema. Since the enum is an object, you can use `Object.values` to get that:
 
     const PrimaryColorList = Object.values(PrimaryColors); // ['red', 'blue', 'green']
     // typeof PrimaryColorList = Array<'red'|'blue'|'green'>
+
+Allowed value types
+===================
+
+Currently you can use any string, number, or boolean as a value
